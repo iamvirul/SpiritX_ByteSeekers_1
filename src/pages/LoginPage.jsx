@@ -2,24 +2,48 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomButton from '../components/Buttons';
 import CustomInputField from '../components/InputFields';
+import { logIn, googleLogin, facebookLogin } from '../services/authService'; 
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [keepSignedIn, setKeepSignedIn] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleGoogleLogin = () => {
-    console.log('Sign in with Google');
+  const handleGoogleLogin = async () => {
+    try {
+      const user = await googleLogin();
+      console.log('Google login successful:', user);
+      navigate('/home'); 
+    } catch (error) {
+      console.error('Google login error:', error.message);
+      setError(error.message);
+    }
   };
 
-  const handleFacebookLogin = () => {
-    console.log('Sign in with Facebook');
+  const handleFacebookLogin = async () => {
+    try {
+      const user = await facebookLogin();
+      console.log('Facebook login successful:', user);
+      navigate('/home');
+    } catch (error) {
+      console.error('Facebook login error:', error.message);
+      setError(error.message);
+    }
   };
 
-  const handleSignIn = () => {
-    console.log('Email:', email);
-    console.log('Password:', password);
-    console.log('Keep me signed in:', keepSignedIn);
+  const handleSignIn = async () => {
+    setError(null);
+    console.log('Logging in with:', email);
+    
+    try {
+      const userCredential = await logIn(email, password);
+      console.log('Login successful:', userCredential.user);
+      navigate('/home'); 
+    } catch (error) {
+      console.error('Login error:', error.message);
+      setError(error.message); 
+    }
   };
 
   const navigate = useNavigate();

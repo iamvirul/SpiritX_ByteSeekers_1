@@ -5,8 +5,16 @@ const auth = getAuth(app);
 
 // Signup Function
 export const signUp = async (email, password) => {
-  return await createUserWithEmailAndPassword(auth, email, password);
-};
+    console.log("Signup attempt with:", email);
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      console.log("Signup successful:", userCredential.user);
+      return userCredential;
+    } catch (error) {
+      console.error("Signup error:", error.message);
+      throw error;
+    }
+  };
 
 // Login Function
 export const logIn = async (email, password) => {

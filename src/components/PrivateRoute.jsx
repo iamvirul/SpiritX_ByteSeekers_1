@@ -2,7 +2,11 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "./AuthContext"; // Importing AuthContext to check authentication status
 
 const PrivateRoute = () => {
-  const { user } = useAuth(); // Check if the user is logged in
+  const { user, loading } = useAuth(); // Check if the user is logged in
+
+  if (loading) {
+    return null; // Prevents rendering anything when loading spinner is shown in AuthProvider
+  }
 
   if (!user) {
     // If not authenticated, redirect to login page

@@ -1,23 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import CustomButton from '../components/Buttons';
 
 const HomePage = () => {
-    return (
-        <div className="flex flex-col min-h-screen">
-            <header className="bg-blue-600 text-white p-4">
-                <h1 className="text-2xl">Welcome to My Website</h1>
-            </header>
-            <main className="flex-grow p-4">
-                <h2 className="text-xl mb-4">Home Page</h2>
-                <p className="mb-4">This is a sample home page using Tailwind CSS.</p>
-                <button className="bg-blue-500 text-white px-4 py-2 rounded">
-                    Get Started
-                </button>
-            </main>
-            <footer className="bg-gray-800 text-white p-4">
-                <p>&copy; 2023 My Website. All rights reserved.</p>
-            </footer>
-        </div>
-    );
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    console.log('User logged out');
+    navigate('/login');
+  };
+
+  // Log when the page is loaded
+  useEffect(() => {
+    console.log('HomePage loaded');
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
+      <div className="bg-boxColor p-8 rounded-lg shadow-lg w-full max-w-md text-center">
+        <h1 className="text-3xl font-bold text-white mb-4">Welcome to Your Dashboard</h1>
+        <p className="text-lg text-textColor2 mb-6">You are successfully logged in.</p>
+
+        {/* Logout Button */}
+        <CustomButton
+          onClick={handleLogout}
+          className="bg-primary text-white hover:bg-primary/70"
+        >
+          Logout
+        </CustomButton>
+      </div>
+    </div>
+  );
 };
 
 export default HomePage;

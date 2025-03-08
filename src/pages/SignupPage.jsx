@@ -2,29 +2,49 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomButton from '../components/Buttons';
 import CustomInputField from '../components/InputFields';
+import { signUp, googleLogin, facebookLogin } from '../services/authService'; 
 
 const SignupPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
   
   const navigate = useNavigate();
 
-  const handleSignup = () => {
+  const handleSignup = async () => {
     if (password !== confirmPassword) {
-      alert('Passwords do not match!');
+      setError('Passwords do not match!'); 
       return;
     }
-    console.log('Email:', email);
-    console.log('Password:', password);
+
+    try {
+      await signUp(email, password);
+      alert('Signup Successful! Redirecting...');
+      navigate('/login'); 
+    } catch (error) {
+      setError(error.message); 
+    }
   };
 
-  const handleGoogleSignup = () => {
-    console.log('Sign up with Google');
+  const handleGoogleSignup = async () => {
+    try {
+      await googleLogin();
+      alert('Google Sign up Successful!');
+      navigate('/login'); 
+    } catch (error) {
+      setError(error.message); 
+    }
   };
 
-  const handleFacebookSignup = () => {
-    console.log('Sign up with Facebook');
+  const handleFacebookSignup = async () => {
+    try {
+      await facebookLogin();
+      alert('Facebook Sign up Successful!');
+      navigate('/login'); 
+    } catch (error) {
+      setError(error.message); 
+    }
   };
 
   return (
