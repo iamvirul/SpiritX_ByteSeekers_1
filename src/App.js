@@ -4,7 +4,6 @@ import { Toaster } from 'react-hot-toast';  // Import Toaster
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
-import WelcomePage from './pages/WelcomePage';
 import ForgotPassword from './pages/ForgotPassword';
 
 function App() {
@@ -12,7 +11,7 @@ function App() {
     <Router>
       <Toaster position="top-center" reverseOrder={false} />  {/* Add this */}
       <Routes>
-        <Route path="/" element={<WelcomePage />} />
+        <Route path="/" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/home" element={<HomePage />} />
