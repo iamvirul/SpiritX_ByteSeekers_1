@@ -17,7 +17,7 @@ const LoginPage = () => {
 
   const navigate = useNavigate();
 
-  // Real-time validation for email and password
+
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
     setEmailError(validateEmail(e.target.value) ? '' : 'Invalid email format');
@@ -33,14 +33,12 @@ const LoginPage = () => {
   };
 
   const handleSignIn = async () => {
-    // Check if both fields are empty
     if (!email || !password) {
       if (!email) setEmailError('Please enter your email');
       if (!password) setPasswordError('Please enter your password');
       return;
     }
 
-    // Check if email or password is invalid
     if (emailError || passwordError) return;
 
     try {
@@ -79,7 +77,6 @@ const LoginPage = () => {
         <h1 className="text-2xl font-bold text-white mb-2">Sign in to your account</h1>
         <p className="text-sm text-textColor2 mb-6">Login to continue.</p>
 
-        {/* Google Login Button */}
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <CustomButton
             onClick={handleGoogleLogin}
@@ -103,15 +100,11 @@ const LoginPage = () => {
             />
           </CustomButton>
         </motion.div>
-
-        {/* Divider */}
         <div className="flex items-center mb-6">
           <div className="flex-grow border-t border-gray-300"></div>
           <span className="mx-4 text-sm text-textColor2">OR</span>
           <div className="flex-grow border-t border-gray-300"></div>
         </div>
-
-        {/* Email Input Field */}
         <CustomInputField
           label="Email"
           type="email"
@@ -135,7 +128,6 @@ const LoginPage = () => {
           isValid={!passwordError}
         />
 
-        {/* Sign In Button */}
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <CustomButton
             onClick={handleSignIn}
@@ -158,8 +150,6 @@ const LoginPage = () => {
             />
           </CustomButton>
         </motion.div>
-
-        {/* Forgot Password Link */}
         <p className="text-sm text-textColor2 text-center mb-4">
           <a
             href="#"
@@ -170,7 +160,6 @@ const LoginPage = () => {
           </a>
         </p>
 
-        {/* Signup Link */}
         <p className="text-sm text-textColor2 text-center">
           Don't have an account?{' '}
           <a
