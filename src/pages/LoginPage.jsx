@@ -112,7 +112,7 @@ const LoginPage = () => {
         {/* Sign Up Link */}
         <p className="text-sm text-textColor2 text-center">
           Don't have an account?{' '}
-          <a href="#" className="text-primary hover:text-primary/80">
+          <a href="/signup" onClick={handleSignup} className="text-primary hover:text-primary/80">
             Sign up
           </a>
         </p>

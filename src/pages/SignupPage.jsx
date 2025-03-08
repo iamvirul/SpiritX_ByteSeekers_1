@@ -111,7 +111,7 @@ const SignupPage = () => {
         {/* Login Link */}
         <p className="text-sm text-textColor2 text-center">
           Already have an account?{' '}
-          <a href="#" className="text-primary hover:text-primary/80" onClick={() => navigate('/login')}>
+          <a href="" className="text-primary hover:text-primary/80" onClick={() => navigate('/login')}>
             Log in
           </a>
         </p>
