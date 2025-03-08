@@ -1,14 +1,24 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomButton from '../components/Buttons';
+import { getAuth, signOut } from 'firebase/auth';
 
 const HomePage = () => {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    console.log('User logged out');
-    navigate('/login');
+  const handleLogout = async () => {
+    const auth = getAuth();
+    try {
+      await signOut(auth);
+      localStorage.clear();  // Clear all stored user data
+      sessionStorage.clear(); // Clear session storage if used
+      console.log('User logged out');
+      navigate('/login');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
   };
+  
 
   // Log when the page is loaded
   useEffect(() => {

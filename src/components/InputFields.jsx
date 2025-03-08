@@ -8,6 +8,13 @@ const InputFields = ({ label, type, id, placeholder, value, onChange, errorMessa
     setShowPassword(!showPassword);
   };
 
+  const getBorderColor = () => {
+    if (value === '') {
+      return 'border-gray-500'; // Grey border when nothing is entered
+    }
+    return !isValid ? 'border-red-500' : 'border-green-300'; // Red for invalid, green for valid
+  };
+
   return (
     <div className="mb-4">
       <label className="block text-sm font-medium text-secondary mb-1" htmlFor={id}>
@@ -16,9 +23,9 @@ const InputFields = ({ label, type, id, placeholder, value, onChange, errorMessa
       <div className="relative">
         <input
           className={`w-full px-3 py-2 border text-secondary/80 bg-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-[#EB662B] focus:border-transparent 
-            ${!isValid ? 'border-red-500' : 'border-green-300'} pr-10`} // added padding-right for space
+            ${getBorderColor()} pr-10`} // Added dynamic border color handling
           id={id}
-          type={showPassword ? 'text' : type} // toggle input type for password visibility
+          type={showPassword ? 'text' : type} // Toggle input type for password visibility
           placeholder={placeholder}
           value={value}
           onChange={onChange}

@@ -1,14 +1,49 @@
 import React, { useState } from 'react';
 import CustomButton from '../components/Buttons';
 import CustomInputField from '../components/InputFields';
-
+import { toast } from 'react-hot-toast'; // Assuming you are using react-hot-toast for notifications
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth'; // Firebase authentication
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
 
-  const handleResetPassword = () => {
-    console.log('Password reset link sent to:', email);
-    // You can add an API call here to send the reset password email
+  // Email validation using regex
+  const validateEmail = (email) => {
+    const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return regex.test(email);
+  };
+
+  // Handle real-time email validation
+  const handleEmailChange = (e) => {
+    const enteredEmail = e.target.value;
+    setEmail(enteredEmail);
+
+    if (!enteredEmail) {
+      setEmailError('Please enter your email');
+    } else if (!validateEmail(enteredEmail)) {
+      setEmailError('Please enter a valid email address');
+    } else {
+      setEmailError('');
+    }
+  };
+
+  const handleResetPassword = async () => {
+    // Validate email before attempting to send the reset link
+    if (emailError || !email) {
+      toast.error('Please enter a valid email address');
+      return;
+    }
+
+    // Firebase Password Reset
+    const auth = getAuth();
+    try {
+      await sendPasswordResetEmail(auth, email);
+      toast.success('Password reset link sent to your email');
+    } catch (error) {
+      console.error('Error sending reset link:', error);
+      toast.error(error.message || 'Failed to send reset link. Please try again.');
+    }
   };
 
   return (
@@ -26,7 +61,9 @@ const ForgotPassword = () => {
           id="email"
           placeholder="Enter your email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={handleEmailChange} // Handle real-time validation
+          errorMessage={emailError}
+          isValid={!emailError} // Show error only if there is an error
         />
 
         {/* Reset Password Button */}

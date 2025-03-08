@@ -40,8 +40,14 @@ const SignupPage = () => {
   };
 
   const handleSignup = async () => {
-    if (emailError || passwordError || confirmPasswordError) return;
-  
+    // Prevent submission if any of the fields are invalid or empty
+    if (!email || !password || !confirmPassword || emailError || passwordError || confirmPasswordError) {
+      if (!email) setEmailError('Email is required');
+      if (!password) setPasswordError('Password is required');
+      if (!confirmPassword) setConfirmPasswordError('Confirm Password is required');
+      return;
+    }
+
     try {
       await signUp(email, password);
       toast.success('Signup successful! Redirecting...');
@@ -51,10 +57,6 @@ const SignupPage = () => {
       toast.error(error.message || 'Signup failed. Please try again.');
     }
   };
-  
-  
-  
-  
 
   const handleGoogleSignup = async () => {
     try {

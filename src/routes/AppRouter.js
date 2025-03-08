@@ -10,9 +10,10 @@ const AppRouter = () => (
       <Route path="/" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/login" element={<LoginPage />} />
-      
-      {/* Protect the HomePage route with PrivateRoute */}
       <Route path="/home" element={<PrivateRoute><HomePage /></PrivateRoute>} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="*" element={<LoginPage />}>
+      </Route>
     </Routes>
   </Router>
 );

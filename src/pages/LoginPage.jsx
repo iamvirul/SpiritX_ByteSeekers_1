@@ -29,7 +29,16 @@ const LoginPage = () => {
   };
 
   const handleSignIn = async () => {
+    // Check if both fields are empty
+    if (!email || !password) {
+      if (!email) setEmailError('Please enter your email');
+      if (!password) setPasswordError('Please enter your password');
+      return;
+    }
+
+    // Check if email or password is invalid
     if (emailError || passwordError) return;
+
     try {
       await logIn(email, password);
       toast.success('Login successful! Redirecting...');
@@ -123,10 +132,25 @@ const LoginPage = () => {
           Sign In
         </CustomButton>
 
+        {/* Forgot Password Link */}
+        <p className="text-sm text-textColor2 text-center mb-4">
+          <a
+            href="#"
+            className="text-primary hover:text-primary/80"
+            onClick={() => navigate('/forgot-password')}
+          >
+            Forgot your password?
+          </a>
+        </p>
+
         {/* Signup Link */}
         <p className="text-sm text-textColor2 text-center">
           Don't have an account?{' '}
-          <a href="" className="text-primary hover:text-primary/80" onClick={() => navigate('/signup')}>
+          <a
+            href="#"
+            className="text-primary hover:text-primary/80"
+            onClick={() => navigate('/signup')}
+          >
             Sign up
           </a>
         </p>

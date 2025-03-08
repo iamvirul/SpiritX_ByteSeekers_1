@@ -1,19 +1,21 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "./AuthContext"; // Importing AuthContext to check authentication status
+import { useAuth } from "./AuthContext"; 
+import LoadingSpinner from "./LoadingSpinner";
 
 const PrivateRoute = () => {
-  const { user, loading } = useAuth(); // Check if the user is logged in
+  const { user, loading } = useAuth(); // Access user and loading state from AuthContext
 
   if (loading) {
-    return null; // Prevents rendering anything when loading spinner is shown in AuthProvider
+    // If loading, return null or a loading spinner to prevent rendering
+    return <div><LoadingSpinner /> </div>; // You can customize this to show a loading spinner
   }
 
   if (!user) {
-    // If not authenticated, redirect to login page
+    // If user is not authenticated, redirect to login page
     return <Navigate to="/login" />;
   }
 
-  // If authenticated, render the child components (the page this route protects)
+  // If user is authenticated, render the child components (protected page)
   return <Outlet />;
 };
 
