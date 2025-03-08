@@ -9,7 +9,9 @@ module.exports = {
         primary: '#EB662B',
         textColor: '#6B6B75',
         secondary: "#FEEAE1",
-        dark: "#121723"
+        textColor2: "#868da0",
+        dark: "#121723",
+        boxColor: "#1d2430"
       },
     }
 

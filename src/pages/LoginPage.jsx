@@ -1,21 +1,31 @@
-import React from 'react';
-import CustomButton from '../components/button';
-import CustomInputField from '../components/inputField';
+import React, { useState } from 'react';
+import CustomButton from '../components/Button';
+import CustomInputField from '../components/InputField';
 
 const LoginPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [keepSignedIn, setKeepSignedIn] = useState(false);
+
   const handleGoogleLogin = () => {
     console.log('Sign in with Google');
   };
 
-  const handleGithubLogin = () => {
-    console.log('Sign in with Github');
+  const handleFacebookLogin = () => {
+    console.log('Sign in with Facebook');
+  };
+
+  const handleSignIn = () => {
+    console.log('Email:', email);
+    console.log('Password:', password);
+    console.log('Keep me signed in:', keepSignedIn);
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-2xl font-bold text-gray-800 mb-2">Sign in to your account</h1>
-        <p className="text-sm text-gray-600 mb-6">
+    <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
+      <div className="bg-boxColor p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h1 className="text-2xl font-bold text-white mb-2">Sign in to your account</h1>
+        <p className="text-sm text-textColor2 mb-6">
           Login to your account for a faster checkout.
         </p>
 
@@ -26,33 +36,33 @@ const LoginPage = () => {
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
               alt="Google"
-              className="w-4 h-4"
+              className="w-7 h-7"
             />
           }
-          className="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 mb-4"
+          className="bg-transparent text-textColor2 hover:bg-gray-900 mb-6"
         >
           Sign in with Google
         </CustomButton>
 
-        {/* Github Login Button */}
+        {/* Facebook Login Button */}
         <CustomButton
-          onClick={handleGithubLogin}
+          onClick={handleFacebookLogin}
           icon={
             <img
-              src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-              alt="Github"
-              className="w-4 h-4"
+              src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+              alt="Facebook"
+              className="w-7 h-7"
             />
           }
-          className="bg-gray-800 text-white hover:bg-gray-900 mb-6"
+          className="bg-transparent text-textColor2 hover:bg-gray-900 mb-6"
         >
-          Sign in with Github
+          Sign in with Facebook
         </CustomButton>
 
         {/* Divider */}
         <div className="flex items-center mb-6">
           <div className="flex-grow border-t border-gray-300"></div>
-          <span className="mx-4 text-sm text-gray-500">OR</span>
+          <span className="mx-4 text-sm text-textColor2">OR</span>
           <div className="flex-grow border-t border-gray-300"></div>
         </div>
 
@@ -62,8 +72,8 @@ const LoginPage = () => {
           type="email"
           id="email"
           placeholder="Enter your email"
-          value=""
-          onChange={(e) => console.log(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
 
         {/* Password Input Field */}
@@ -72,34 +82,29 @@ const LoginPage = () => {
           type="password"
           id="password"
           placeholder="Enter your password"
-          value=""
-          onChange={(e) => console.log(e.target.value)}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
 
-        {/* Keep Me Signed In Checkbox */}
-        <div className="flex items-center mb-6">
-          <input
-            type="checkbox"
-            id="keep-signed-in"
-            className="h-4 w-4 text-[#EB662B] focus:ring-[#EB662B] border-gray-300 rounded"
-          />
-          <label htmlFor="keep-signed-in" className="ml-2 text-sm text-gray-700">
-            Keep me signed in
-          </label>
+        {/* Forgot Password Link - Aligned Right */}
+        <div className="flex justify-end mb-6">
+          <a href="/forgot-password" className="text-sm text-primary hover:text-primary/80">
+            Forgot password?
+          </a>
         </div>
 
         {/* Sign In Button */}
         <CustomButton
-          onClick={() => console.log('Sign in clicked')}
-          className="bg-[#EB662B] text-white hover:bg-[#EB662B]/90 mb-4"
+          onClick={handleSignIn}
+          className="bg-primary text-white hover:bg-primary/90 mb-4"
         >
           Sign In
         </CustomButton>
 
         {/* Sign Up Link */}
-        <p className="text-sm text-gray-600 text-center">
-          Don't you have an account?{' '}
-          <a href="#" className="text-[#EB662B] hover:text-[#EB662B]/80">
+        <p className="text-sm text-textColor2 text-center">
+          Don't have an account?{' '}
+          <a href="#" className="text-primary hover:text-primary/80">
             Sign up
           </a>
         </p>
