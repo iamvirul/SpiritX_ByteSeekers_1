@@ -96,7 +96,7 @@ const LoginPage = () => {
 
         {/* Forgot Password Link - Aligned Right */}
         <div className="flex justify-end mb-6">
-          <a href="/forgot-password" className="text-sm text-primary hover:text-primary/80">
+          <a href="/signup" className="text-sm text-primary hover:text-primary/80">
             Forgot password?
           </a>
         </div>

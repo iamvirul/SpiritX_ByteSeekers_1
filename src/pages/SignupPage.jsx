@@ -1,6 +1,6 @@
 import React from 'react';
-import CustomButton from '../components/button';
-import CustomInputField from '../components/inputField';
+import CustomButton from '../components/Buttons';
+import CustomInputField from '../components/InputFields';
 import { useNavigate } from 'react-router-dom';
 
 const SignupPage = () => {
