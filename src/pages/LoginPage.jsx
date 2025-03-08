@@ -1,6 +1,7 @@
 import React from 'react';
 import CustomButton from '../components/button';
 import CustomInputField from '../components/inputField';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const handleGoogleLogin = () => {
@@ -10,6 +11,13 @@ const LoginPage = () => {
   const handleGithubLogin = () => {
     console.log('Sign in with Github');
   };
+
+  const navigate = useNavigate();
+  
+  const handleSignup = (e) => {
+    e.preventDefault();
+    navigate('/signup');
+};
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
@@ -99,7 +107,7 @@ const LoginPage = () => {
         {/* Sign Up Link */}
         <p className="text-sm text-gray-600 text-center">
           Don't you have an account?{' '}
-          <a href="#" className="text-[#EB662B] hover:text-[#EB662B]/80">
+          <a href="#" onClick={handleSignup} className="text-[#EB662B] hover:text-[#EB662B]/80">
             Sign up
           </a>
         </p>
