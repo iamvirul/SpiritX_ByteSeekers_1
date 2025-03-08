@@ -1,7 +1,18 @@
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-const InputFields = ({ label, type, id, placeholder, value, onChange, errorMessage, isValid }) => {
+const InputFields = ({
+  label,
+  type,
+  id,
+  placeholder,
+  value,
+  onChange,
+  onFocus,
+  onBlur, 
+  errorMessage,
+  isValid,
+}) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -10,9 +21,9 @@ const InputFields = ({ label, type, id, placeholder, value, onChange, errorMessa
 
   const getBorderColor = () => {
     if (value === '') {
-      return 'border-gray-500'; // Grey border when nothing is entered
+      return 'border-gray-500'; 
     }
-    return !isValid ? 'border-red-500' : 'border-green-300'; // Red for invalid, green for valid
+    return !isValid ? 'border-red-500' : 'border-green-300';
   };
 
   return (
@@ -23,14 +34,15 @@ const InputFields = ({ label, type, id, placeholder, value, onChange, errorMessa
       <div className="relative">
         <input
           className={`w-full px-3 py-2 border text-secondary/80 bg-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-[#EB662B] focus:border-transparent 
-            ${getBorderColor()} pr-10`} // Added dynamic border color handling
+            ${getBorderColor()} pr-10`}
           id={id}
-          type={showPassword ? 'text' : type} // Toggle input type for password visibility
+          type={showPassword ? 'text' : type} 
           placeholder={placeholder}
           value={value}
           onChange={onChange}
+          onFocus={onFocus}
+          onBlur={onBlur} 
         />
-        {/* Visibility Button */}
         {type === 'password' && (
           <button
             type="button"
@@ -41,7 +53,6 @@ const InputFields = ({ label, type, id, placeholder, value, onChange, errorMessa
           </button>
         )}
       </div>
-      {/* Display the error message if the input is invalid */}
       {!isValid && errorMessage && (
         <p className="text-sm text-red-500 mt-1">{errorMessage}</p>
       )}
