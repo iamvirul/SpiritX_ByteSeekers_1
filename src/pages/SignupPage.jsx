@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+// SignupPage.jsx
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import CustomButton from '../components/Buttons';
 import CustomInputField from '../components/InputFields';
 import { signUp, googleLogin, facebookLogin } from '../services/authService';
 import { validateEmail, validatePassword, validateConfirmPassword } from '../utils/validators';
 import GoogleImage from '../assets/images/google.png';
 import FacebookImage from '../assets/images/facebook.png';
+import { toast } from 'react-hot-toast';  
 
 const SignupPage = () => {
   const [email, setEmail] = useState('');
@@ -39,38 +40,41 @@ const SignupPage = () => {
   };
 
   const handleSignup = async () => {
-    // Perform final validation before submitting
     if (emailError || passwordError || confirmPasswordError) return;
-
+  
     try {
       await signUp(email, password);
-      alert('Signup Successful! Redirecting...');
+      toast.success('Signup successful! Redirecting...');
       navigate('/login');
     } catch (error) {
-      setError(error.message);
+      console.error("Signup failed:", error); // Log the full error object
+      toast.error(error.message || 'Signup failed. Please try again.');
     }
   };
+  
+  
+  
+  
 
   const handleGoogleSignup = async () => {
     try {
       await googleLogin();
-      alert('Google Sign up Successful!');
+      toast.success('Google Sign up Successful!');
       navigate('/login');
     } catch (error) {
-      setError(error.message);
+      toast.error(error.message);
     }
   };
 
   const handleFacebookSignup = async () => {
     try {
       await facebookLogin();
-      alert('Facebook Sign up Successful!');
+      toast.success('Facebook Sign up Successful!');
       navigate('/login');
     } catch (error) {
-      setError(error.message);
+      toast.error(error.message);
     }
   };
-
 
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
@@ -139,7 +143,6 @@ const SignupPage = () => {
             errorMessage={passwordError}
             isValid={!passwordError}
           />
-
         </div>
 
         {/* Confirm Password Input Field */}
@@ -154,7 +157,6 @@ const SignupPage = () => {
             errorMessage={confirmPasswordError}
             isValid={!confirmPasswordError}
           />
-          
         </div>
 
         {/* Sign Up Button */}
