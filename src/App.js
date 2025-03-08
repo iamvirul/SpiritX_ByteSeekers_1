@@ -5,6 +5,8 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import WelcomePage from './pages/WelcomePage';
+import ForgotPassword from './pages/ForgotPassword';
+
 
 function App() {
   return (
@@ -15,6 +17,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         {/* <Route path="/home" element={<PrivateRoute><HomePage /></PrivateRoute>} /> */}
         <Route path="/home" element={<HomePage />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
     </Router>
   );
