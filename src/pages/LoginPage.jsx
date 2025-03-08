@@ -21,6 +21,13 @@ const LoginPage = () => {
     console.log('Keep me signed in:', keepSignedIn);
   };
 
+  const navigate = useNavigate();
+  
+  const handleSignup = (e) => {
+    e.preventDefault();
+    navigate('/signup');
+};
+
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
       <div className="bg-boxColor p-8 rounded-lg shadow-lg w-full max-w-md">
