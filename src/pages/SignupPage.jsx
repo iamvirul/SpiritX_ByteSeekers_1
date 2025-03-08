@@ -1,31 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CustomButton from '../components/Buttons';
 import CustomInputField from '../components/InputFields';
-import { useNavigate } from 'react-router-dom';
 
 const SignupPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  
   const navigate = useNavigate();
+
+  const handleSignup = () => {
+    if (password !== confirmPassword) {
+      alert('Passwords do not match!');
+      return;
+    }
+    console.log('Email:', email);
+    console.log('Password:', password);
+  };
 
   const handleGoogleSignup = () => {
     console.log('Sign up with Google');
   };
 
-  const handleGithubSignup = () => {
-    console.log('Sign up with Github');
-  };
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    navigate('/login');
+  const handleFacebookSignup = () => {
+    console.log('Sign up with Facebook');
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-2xl font-bold text-gray-800 mb-2">Create an account</h1>
-        <p className="text-sm text-gray-600 mb-6">
-          Sign up to get started with our services.
-        </p>
+    <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
+      <div className="bg-boxColor p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h1 className="text-2xl font-bold text-white mb-2">Create an Account</h1>
+        <p className="text-sm text-textColor2 mb-6">Sign up to get started.</p>
 
         {/* Google Signup Button */}
         <CustomButton
@@ -34,45 +40,35 @@ const SignupPage = () => {
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
               alt="Google"
-              className="w-4 h-4"
+              className="w-7 h-7"
             />
           }
-          className="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 mb-4"
+          className="bg-transparent text-textColor2 hover:bg-gray-900 mb-6"
         >
           Sign up with Google
         </CustomButton>
 
-        {/* Github Signup Button */}
+        {/* Facebook Signup Button */}
         <CustomButton
-          onClick={handleGithubSignup}
+          onClick={handleFacebookSignup}
           icon={
             <img
-              src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-              alt="Github"
-              className="w-4 h-4"
+              src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+              alt="Facebook"
+              className="w-7 h-7"
             />
           }
-          className="bg-gray-800 text-white hover:bg-gray-900 mb-6"
+          className="bg-transparent text-textColor2 hover:bg-gray-900 mb-6"
         >
-          Sign up with Github
+          Sign up with Facebook
         </CustomButton>
 
         {/* Divider */}
         <div className="flex items-center mb-6">
           <div className="flex-grow border-t border-gray-300"></div>
-          <span className="mx-4 text-sm text-gray-500">OR</span>
+          <span className="mx-4 text-sm text-textColor2">OR</span>
           <div className="flex-grow border-t border-gray-300"></div>
         </div>
-
-        {/* Name Input Field */}
-        <CustomInputField
-          label="Full Name"
-          type="text"
-          id="name"
-          placeholder="Enter your full name"
-          value=""
-          onChange={(e) => console.log(e.target.value)}
-        />
 
         {/* Email Input Field */}
         <CustomInputField
@@ -80,8 +76,8 @@ const SignupPage = () => {
           type="email"
           id="email"
           placeholder="Enter your email"
-          value=""
-          onChange={(e) => console.log(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
 
         {/* Password Input Field */}
@@ -90,34 +86,32 @@ const SignupPage = () => {
           type="password"
           id="password"
           placeholder="Enter your password"
-          value=""
-          onChange={(e) => console.log(e.target.value)}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
 
-        {/* Terms and Conditions Checkbox */}
-        <div className="flex items-center mb-6">
-          <input
-            type="checkbox"
-            id="terms"
-            className="h-4 w-4 text-[#EB662B] focus:ring-[#EB662B] border-gray-300 rounded"
-          />
-          <label htmlFor="terms" className="ml-2 text-sm text-gray-700">
-            I agree to the Terms & Conditions
-          </label>
-        </div>
+        {/* Confirm Password Input Field */}
+        <CustomInputField
+          label="Confirm Password"
+          type="password"
+          id="confirm-password"
+          placeholder="Confirm your password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
 
         {/* Sign Up Button */}
         <CustomButton
-          onClick={() => console.log('Sign up clicked')}
-          className="bg-[#EB662B] text-white hover:bg-[#EB662B]/90 mb-4"
+          onClick={handleSignup}
+          className="bg-primary text-white hover:bg-primary/90 mb-4"
         >
           Sign Up
         </CustomButton>
 
-        {/* Already have an account? Login Link */}
-        <p className="text-sm text-gray-600 text-center">
+        {/* Login Link */}
+        <p className="text-sm text-textColor2 text-center">
           Already have an account?{' '}
-          <a href="#" onClick={handleLogin} className="text-[#EB662B] hover:text-[#EB662B]/80">
+          <a href="#" className="text-primary hover:text-primary/80" onClick={() => navigate('/login')}>
             Log in
           </a>
         </p>
