@@ -7,6 +7,7 @@ import { logIn, googleLogin } from '../services/authService';
 import { validateEmail, validatePassword } from '../utils/validators';
 import GoogleImage from '../assets/images/google.png';
 import { toast } from 'react-hot-toast';
+import { DotLoader } from 'react-spinners';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -14,6 +15,7 @@ const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -41,6 +43,8 @@ const LoginPage = () => {
 
     if (emailError || passwordError) return;
 
+    setLoading(true);
+
     try {
       await logIn(email, password);
       toast.success('Login successful! Redirecting...');
@@ -48,6 +52,8 @@ const LoginPage = () => {
     } catch (error) {
       console.error('Login error:', error);
       toast.error(error.message || 'Login failed. Please try again.');
+    } finally {
+      setLoading(false); // Hide spinner
     }
   };
 
@@ -133,7 +139,12 @@ const LoginPage = () => {
             onClick={handleSignIn}
             className="bg-primary text-white hover:bg-primary/90 mb-4 relative overflow-hidden"
           >
-            <span className="relative z-10">Sign In</span>
+            
+            {loading ? (
+              <DotLoader size={20} color="white" />
+            ) : (
+              <span className="relative z-10">Sign In</span>
+            )}
             <motion.span
               className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500"
               style={{

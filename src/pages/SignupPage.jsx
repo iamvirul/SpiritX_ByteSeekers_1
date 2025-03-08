@@ -8,6 +8,8 @@ import { validateEmail, validatePassword, validateConfirmPassword } from '../uti
 import GoogleImage from '../assets/images/google.png';
 import { toast } from 'react-hot-toast';
 import { FaExclamationCircle, FaCheckCircle, FaShieldAlt } from 'react-icons/fa';
+import { DotLoader } from 'react-spinners';
+
 
 const ProgressBar = ({ strength, isVisible }) => {
   if (!isVisible) return null;
@@ -54,6 +56,7 @@ const SignupPage = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -101,6 +104,8 @@ const SignupPage = () => {
       return;
     }
 
+    setLoading(true);
+
     try {
       await signUp(email, password);
       toast.success('Signup successful! Redirecting...');
@@ -118,6 +123,8 @@ const SignupPage = () => {
       navigate('/login');
     } catch (error) {
       toast.error(error.message);
+    }finally {
+      setLoading(false); // Hide spinner
     }
   };
 
@@ -149,6 +156,7 @@ const SignupPage = () => {
             className="bg-transparent text-textColor2 hover:bg-gray-900 mb-6 relative overflow-hidden"
           >
             <span className="relative z-10">Sign up with Google</span>
+            
             <motion.span
               className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500"
               style={{
@@ -212,7 +220,11 @@ const SignupPage = () => {
             onClick={handleSignup}
             className="bg-primary text-white hover:bg-primary/90 mb-4 relative overflow-hidden"
           >
-            <span className="relative z-10">Sign Up</span>
+            {loading ? (
+              <DotLoader size={20} color="white" />
+            ) : (
+              <span className="relative z-10">Sign Up</span>
+            )}
             <motion.span
               className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500"
               style={{
