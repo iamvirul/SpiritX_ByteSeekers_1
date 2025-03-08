@@ -19,7 +19,7 @@ const HomePage = () => {
         {/* Logout Button */}
         <CustomButton
           onClick={handleLogout}
-          className="bg-primary text-white hover:bg-red-600"
+          className="bg-primary text-white hover:bg-primary/70"
         >
           Logout
         </CustomButton>
