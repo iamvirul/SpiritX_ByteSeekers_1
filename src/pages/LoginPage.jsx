@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import CustomButton from '../components/Button';
-import CustomInputField from '../components/InputField';
+import { useNavigate } from 'react-router-dom';
+import CustomButton from '../components/Buttons';
+import CustomInputField from '../components/InputFields';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
