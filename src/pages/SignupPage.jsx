@@ -4,13 +4,12 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import CustomButton from '../components/Buttons';
 import CustomInputField from '../components/InputFields';
 import { signUp, googleLogin, facebookLogin } from '../services/authService';
-import { validateEmail, validatePassword, validateConfirmPassword, validateUsername, validateUniqueUsername } from '../utils/validators';
+import { validateEmail, validatePassword, validateConfirmPassword } from '../utils/validators';
 import GoogleImage from '../assets/images/google.png';
 import FacebookImage from '../assets/images/facebook.png';
 
 const SignupPage = () => {
   const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
@@ -18,41 +17,37 @@ const SignupPage = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [emailError, setEmailError] = useState('');
-  const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Clear error states when the user starts typing
-    setEmailError('');
-    setUsernameError('');
-    setPasswordError('');
-    setConfirmPasswordError('');
-  }, [email, username, password, confirmPassword]);
+  // Real-time validation for email, password, and confirm password
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    setEmailError(validateEmail(e.target.value) ? '' : 'Invalid email format');
+  };
 
-  // Real-time validation for email, username, password, and confirm password
-  const isEmailValid = validateEmail(email);
-  const isUsernameValid = validateUsername(username);
-  const isPasswordValid = validatePassword(password);
-  const isConfirmPasswordValid = validateConfirmPassword(password, confirmPassword);
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    setPasswordError(validatePassword(e.target.value) ? '' : 'Password must contain at least one lowercase letter, one uppercase letter, and one special character');
+  };
+
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+    setConfirmPasswordError(validateConfirmPassword(password, e.target.value) ? '' : 'Passwords do not match');
+  };
 
   const handleSignup = async () => {
-    // Perform validations before submitting
-    if (!isEmailValid) setEmailError('Invalid email format');
-    if (!isUsernameValid) setUsernameError('Username must be at least 8 characters');
-    if (!isPasswordValid) setPasswordError('Password must contain at least one lowercase letter, one uppercase letter, and one special character');
-    if (!isConfirmPasswordValid) setConfirmPasswordError('Passwords do not match');
+    // Perform final validation before submitting
+    if (emailError || passwordError || confirmPasswordError) return;
 
-    if (isEmailValid && isUsernameValid && isPasswordValid && isConfirmPasswordValid) {
-      try {
-        await signUp(email, password, username);
-        alert('Signup Successful! Redirecting...');
-        navigate('/login');
-      } catch (error) {
-        setError(error.message);
-      }
+    try {
+      await signUp(email, password);
+      alert('Signup Successful! Redirecting...');
+      navigate('/login');
+    } catch (error) {
+      setError(error.message);
     }
   };
 
@@ -76,13 +71,6 @@ const SignupPage = () => {
     }
   };
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const toggleConfirmPasswordVisibility = () => {
-    setShowConfirmPassword(!showConfirmPassword);
-  };
 
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
@@ -134,11 +122,10 @@ const SignupPage = () => {
           id="email"
           placeholder="Enter your email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          isValid={isEmailValid}
+          onChange={handleEmailChange}
           errorMessage={emailError}
+          isValid={!emailError}
         />
-
 
         {/* Password Input Field */}
         <div className="relative">
@@ -148,17 +135,11 @@ const SignupPage = () => {
             id="password"
             placeholder="Enter your password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            isValid={isPasswordValid}
+            onChange={handlePasswordChange}
             errorMessage={passwordError}
+            isValid={!passwordError}
           />
-          <button
-            type="button"
-            onClick={togglePasswordVisibility}
-            className="absolute right-4 top-2/3 transform -translate-y-1/2 text-gray-500"
-          >
-            {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
-          </button>
+
         </div>
 
         {/* Confirm Password Input Field */}
@@ -169,17 +150,11 @@ const SignupPage = () => {
             id="confirm-password"
             placeholder="Confirm your password"
             value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            isValid={isConfirmPasswordValid}
+            onChange={handleConfirmPasswordChange}
             errorMessage={confirmPasswordError}
+            isValid={!confirmPasswordError}
           />
-          <button
-            type="button"
-            onClick={toggleConfirmPasswordVisibility}
-            className="absolute right-4 top-2/3 transform -translate-y-1/2 text-gray-500"
-          >
-            {showConfirmPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
-          </button>
+          
         </div>
 
         {/* Sign Up Button */}

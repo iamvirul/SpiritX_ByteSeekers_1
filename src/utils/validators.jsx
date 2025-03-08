@@ -22,10 +22,3 @@ export const validateEmail = (email) => {
     return username.length >= 8;
   };
   
-  // Function to check if username is unique (this will need to be hooked into a database or API to check uniqueness)
-  export const validateUniqueUsername = async (username) => {
-    // Mock API call to check if the username exists (replace with actual API request)
-    const existingUsernames = ['user1', 'user2', 'testuser'];  // Replace with a real list from your database/API
-    return !existingUsernames.includes(username);
-  };
-  
