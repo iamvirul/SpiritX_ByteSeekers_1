@@ -1,70 +1,101 @@
-# Getting Started with Create React App
+# SecureConnect - ByteSeekers
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to **SecureConnect**, a secure and user-friendly authentication system developed by **ByteSeekers** (Hiranya Semindi, Virul Nirmala, Tilakna Gunawardhane, Udeepa Gaallage). This project is part of the **SpiritX 2025** hackathon and is built using **Firebase Authentication** to provide a seamless and secure signup and login experience.
 
-## Available Scripts
+## Project Overview
 
-In the project directory, you can run:
+SecureConnect is a secure authentication system that allows users to:
+- **Sign up** with a unique username and strong password.
+- **Log in** and be greeted with a personalized message.
 
-### `npm start`
+The project is built using **React** for the frontend and **Firebase** for authentication and backend services. The system enforces validation rules, manages errors effectively, and provides a polished user experience.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Getting Started
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+To run this project locally, follow the steps below:
 
-### `npm test`
+### Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Enable Firebase Authentication**:
+   - Go to the [Firebase Console](https://console.firebase.google.com/).
+   - Create a new project or use an existing one.
+   - Enable the **Email/Password** authentication method in the **Authentication** section.
 
-### `npm run build`
+2. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/iamvirul/SpiritX_ByteSeekers_1.git
+   cd SpiritX_ByteSeekers_1
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. **Set Up Environment Variables**:
+   Create a `.env` file in the root directory of the project and add the following Firebase configuration:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   ```plaintext
+   REACT_APP_FIREBASE_API_KEY=
+   REACT_APP_FIREBASE_AUTH_DOMAIN=
+   REACT_APP_FIREBASE_PROJECT_ID=
+   REACT_APP_FIREBASE_STORAGE_BUCKET=
+   REACT_APP_FIREBASE_MESSAGING_SENDER_ID=
+   REACT_APP_FIREBASE_APP_ID=
+   ```
 
-### `npm run eject`
+5. **Run the Project**:
+   ```bash
+   npm start
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   The application will start running on `http://localhost:3000`.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Features
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Signup Page
+- **Input Fields**: Username, Password, Confirm Password.
+- **Validation**: Real-time validation for username length, password strength, and password match.
+- **Error Handling**: Display errors under each input field if validation fails.
+- **Password Strength Indicator**: Dynamically updates based on password complexity.
+- **Success Handling**: After successful signup, show a confirmation dialog and redirect to the login page after 2 seconds.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Login Page
+- **Input Fields**: Username and Password.
+- **Validation**: Real-time validation for empty fields and incorrect credentials.
+- **Error Handling**: Display errors under each field if validation fails.
+- **Success Handling**: Upon successful login, navigate to a landing page with a personalized message: "Hello, <username>!".
+- **Session Management**: Keep the user logged in until they click the "Logout" button.
 
-## Learn More
+## Project Structure
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Frontend**: Built using React, handles the user interface and user experience.
+- **Backend**: Firebase Authentication handles user authentication and session management.
+- **Database**: Firebase Firestore (optional) can be used to store additional user data.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Dependencies
 
-### Code Splitting
+- **React**: Frontend library for building user interfaces.
+- **Firebase**: Backend service for authentication and database.
+- **React Router**: For navigation between pages.
+- **React Hook Form**: For form handling and validation.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Contributing
 
-### Analyzing the Bundle Size
+If you'd like to contribute to this project, feel free to fork the repository and submit a pull request. We welcome any improvements or new features!
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Team Members
 
-### Making a Progressive Web App
+- **Hiranya Semindi**
+- **Virul Nirmala**
+- **Tilakna Gunawardhane**
+- **Udeepa Gaallage**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Contact
 
-### Advanced Configuration
+If you have any questions or need further assistance, feel free to reach out to us:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- **Virul Nirmala**: [GitHub](https://github.com/iamvirul)
+- **Hiranya Semindi**: [GitHub](https://github.com/hiranyasemindi)
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Happy Coding!** 🚀
